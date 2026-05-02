@@ -2,23 +2,34 @@ pipeline {
     agent any
 
     stages {
-        stage('Clone Info') {
+
+        stage('Checkout Info') {
             steps {
+                sh 'echo "Workspace info:"'
                 sh 'pwd'
                 sh 'ls -la'
             }
         }
 
-        stage('Install') {
+        stage('Environment Check') {
             steps {
-                sh 'echo "Installing dependencies..."'
+                sh 'echo "Checking Python version..."'
+                sh 'python3 --version'
             }
         }
 
-        stage('Run App') {
+        stage('Install Dependencies') {
             steps {
+                sh 'echo "Installing dependencies (if any)..."'
+            }
+        }
+
+        stage('Run Application') {
+            steps {
+                sh 'echo "Running app..."'
                 sh 'python3 app.py'
             }
         }
+
     }
 }
