@@ -9,6 +9,12 @@ pipeline {
             }
         }
 
+        stage('Install') {
+            steps {
+                sh 'echo "Installing dependencies..."'
+            }
+        }
+
         stage('Run App') {
             steps {
                 sh 'python3 app.py'
