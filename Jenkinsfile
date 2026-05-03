@@ -3,37 +3,15 @@ pipeline {
 
     stages {
 
-        stage('Checkout Info') {
+        stage('Build Docker Image') {
             steps {
-                sh 'echo "Workspace info:"'
-                sh 'pwd'
-                sh 'ls -la'
+                sh 'docker build -t my-python-app .'
             }
         }
 
-        stage('Environment Check') {
+        stage('Run Docker Container') {
             steps {
-                sh 'echo "Checking Python version..."'
-                sh 'python3 --version'
-            }
-        }
-
-        stage('Install Dependencies') {
-            steps {
-                sh '''
-                python3 -m venv venv
-                . venv/bin/activate
-                pip install -r requirements.txt
-                '''
-            }
-        }
-
-        stage('Run Application') {
-            steps {
-                sh '''
-                . venv/bin/activate
-                python app.py
-                '''
+                sh 'docker run my-python-app'
             }
         }
 
