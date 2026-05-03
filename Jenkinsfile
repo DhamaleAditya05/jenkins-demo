@@ -11,7 +11,8 @@ pipeline {
 
         stage('Run Docker Container') {
             steps {
-                sh 'docker run -p 5000:5000 my-python-app'
+                sh 'docker rm -f my-container || true'
+                sh 'docker run -d -p 5000:5000 --name my-container my-python-app'
             }
         }
 
